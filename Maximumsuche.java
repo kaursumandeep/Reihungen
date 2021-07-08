@@ -151,6 +151,11 @@ public class Maximumsuche extends PApplet
      * @return index des Maximums
      */
     public int maximumsuche() {
+        int max=0;
+        for(int k=0; k<zahlen.length; k++ ){
+            
+        }
+        
         // ------------------------------------------------------------------------------
         // ToDO: Implementiere die Maximumsuche, füge nach jeder Veränderung der
         //       Position des aktuellen Elements oder der Position des momentanen Maximums

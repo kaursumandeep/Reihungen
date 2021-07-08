@@ -2,7 +2,7 @@
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.data.Table;
-
+  
 /**
  * Klasse Balkendiagramm_CSV.
  * Balkendiagramm für int-Array, Zahlen werden aus CSV-Datei gelesen. 
@@ -14,13 +14,18 @@ public class Balkendiagramm_CSV extends PApplet
 { 
     // Liste mit allen Werten 
     // Deklariere ein Array zahlen für die Punkte und ein Array namen für die Spielernamen
+    int []punkte;
+    String []Name;
     //------------
     // TODO
     //------------
 
     // Schriften
     PFont kleineSchrift;  
-    PFont grosseSchrift;  
+    PFont grosseSchrift; 
+    int fgColor=255;
+    int bgColor=0;
+    int barColor=0xff0000ff;
 
     /**
      * settings() Methode 
@@ -55,11 +60,17 @@ public class Balkendiagramm_CSV extends PApplet
         Table csv = loadTable(name,"header,csv");
 
         // Initialisiere Arrays, in die alle Zeilen der Tabelle passen
+        punkte = new int[csv.getRowCount()];
+        Name= new String[csv.getRowCount()];
         // Die Anzahl der gespeicherten Zeilen bekommt man mit csv.getRowCount()
         //------------
         // TODO
         //------------
-
+        for (int k=0; k< punkte.length; k++){
+            punkte[k]= csv.getInt(k,"Punkte");
+            Name[k] = csv.getString(k,"Name");
+        }
+        
         // Fülle die Arrays mit Werten aus der Tabelle
         // Mit csv.getInt(zeilennummer, "Name der Spalte") oder csv.getInt(zeilennummer, spaltennummer)
         // bekommt man die Werte der Tabelleneinträge als Integer-Wert
@@ -78,8 +89,20 @@ public class Balkendiagramm_CSV extends PApplet
         fill(255,255,255);
         textFont(grosseSchrift);
         text("Punkte", 2, 20);
-        textFont(kleineSchrift);  
+        textFont(kleineSchrift); 
+        
+        for(int i=0; i < punkte.length; i++){
+            fill(barColor);
+            rect(120, 15*i+25, punkte[i], 13); //2*zahlen[i]
 
+            // Beschriftung
+            fill(fgColor);
+            textFont(kleineSchrift);  
+            text("i="+i, 2, 38+i*15);
+            text(""+punkte[i], 30, 38+i*15);
+            text(""+Name[i],130, 38+i*15);
+
+        }
         // Alle Einträge darstellen
         // lasse alle Ergebnisse der Spieler in der Form
         // SpielerXY  234 XXXXXXXXXXXXXXXX
